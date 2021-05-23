@@ -11,7 +11,7 @@ class Predict(Resource):
     def post(self):
 
         postedData = request.get_json()
-        temperature = postedData["temperature"]
+        temperature = int(postedData["temperature"])
 
         y_pred = model.predict([[temperature]])
 
@@ -20,7 +20,7 @@ class Predict(Resource):
         elif y_pred < 0:
             fanSpeed = 0
         else:
-            fanSpeed = y_pred - (y_pred - int(y_pred))        
+            fanSpeed = int(y_pred[0][0])    
 
         retJson = {
         "status": 200,
